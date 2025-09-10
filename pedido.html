@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Quiz do Nosso Tempo Juntos ❤️</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #fff0f5;
+  text-align: center;
+}
+h1 {
+  color: #d6336c;
+}
+.quiz-container {
+  max-width: 600px;
+  margin: auto;
+  background: #ffe6f0;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(214, 51, 108, 0.5);
+}
+.question {
+  font-weight: bold;
+  margin-bottom: 15px;
+  font-size: 1.1em;
+}
+.options button {
+  display: block;
+  margin: 8px auto;
+  padding: 10px 20px;
+  background: #ffd6e0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 80%;
+  font-size: 1em;
+  transition: 0.2s;
+}
+.options button:hover {
+  background: #ffabc1;
+}
+#feedback {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#progress {
+  margin-bottom: 10px;
+  font-style: italic;
+}
+#finalVideo {
+  display: none;
+  margin-top: 20px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Quiz do Nosso Tempo Juntos ❤️</h1>
+  <div id="progress"></div>
+  <div id="quiz"></div>
+  <div id="feedback"></div>
+  <video id="finalVideo" controls>
+    <source src="SEU_VIDEO.mp4" type="video/mp4">
+    Seu navegador não suporta vídeos.
+  </video>
+</div>
+
+<script>
+const quizData = [
+  {q:"Lembra do dia 02/05? Te mandei uma foto de um vinho e a gente combinou de sair. Para onde fomos?", options:["Buraco do Jazz","Samba no Cruzeiro","Festa Junina"], answer:0},
+  {q:"No dia 13/05, você me contou que uma das suas cachorras ia ser castrada. Qual era o nome dela?", options:["Meggie","Kali","Fogo"], answer:2},
+  {q:"No dia 08/05, conseguiu um ingresso de última hora para mim. De qual show era?", options:["Tulipa Ruiz","Ludmilla","João Gomes"], answer:0},
+  {q:"No dia 19/05, você estava maratonando uma série e me deu spoilers. Qual série era?", options:["The Last of Us","Ruptura (Severance)","White Lotus"], answer:1},
+  {q:"No dia 11/06, você me falou que topava capinar comigo, mas tinha uma condição. O que você cobrou?", options:["Um jantar romântico","Cerveja e massagem","Um abraço longo"], answer:1},
+  {q:"No dia 20/05, seu aniversário, você comemorou comendo o quê?", options:["Acarajé na feira","Rodízio","Risoto de camarão"], answer:1},
+  {q:"No dia 03/05, você usou uma garrafa de vinho para fazer algo diferente. O que foi?", options:["Vaso para planta","Luz de ambiente","Convite simbólico"], answer:0},
+  {q:"Que dia você me convidou para um samba pela primeira vez?", options:["16/05","15/05","14/05"], answer:1},
+  {q:"No dia 23/05, voce estava de atestado. Qual foi a razão que deu?", options:["Gripe","Tendinite","Enxaqueca"], answer:1},
+  {q:"Na madrugada do dia 04/05, você mandou uma mensagem bem ousada. O que voce disse sobre mim?", options:["Seu pau é uma delícia","Você é lindo","Quero te ver agora"], answer:0},
+  {q:"No dia 07/05, voce falou que as suas dogs iriam para a casa do pai delas. Por quanto tempo?", options:["1 semana","2 semanas","3 semanas"], answer:1},
+  {q:"No dia 09/06, te bussei para irmos ao cinema. O que a gente viu?", options:["Não fomos, o carro quebrou","Ainda estou aqui","A gente nem lembra o nome, só lembra que foi especial 💘"], answer:3}
+];
+
+let current = 0;
+
+function loadQuestion(){
+  if(current >= quizData.length){
+    document.getElementById("quiz").style.display = "none";
+    document.getElementById("progress").style.display = "none";
+    document.getElementById("feedback").innerText = "🎉 Parabéns! Você acertou todas! ❤️";
+    document.getElementById("finalVideo").style.display = "block";
+    return;
+  }
+
+  const q = quizData[current];
+  document.getElementById("progress").innerText = `Pergunta ${current+1} de ${quizData.length}`;
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = `<div class="question">${q.q}</div><div class="options"></div>`;
+  const optionsDiv = quizDiv.querySelector(".options");
+
+  q.options.forEach((opt,i)=>{
+    const btn = document.createElement("button");
+    btn.innerText = opt;
+    btn.onclick = ()=>{
+      if(i === q.answer){
+        document.getElementById("feedback").innerText = "✅ Acertou! 💖";
+        setTimeout(()=>{
+          current++;
+          loadQuestion();
+          document.getElementById("feedback").innerText = "";
+        }, 800);
+      } else {
+        document.getElementById("feedback").innerText = "❌ Ops! Tente de novo 😅";
+      }
+    };
+    optionsDiv.appendChild(btn);
+  });
+}
+
+// Inicializa o quiz
+loadQuestion();
+</script>
+
+</body>
+</html>
