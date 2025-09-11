@@ -2,73 +2,173 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz do Nosso Tempo Juntos ❤️</title>
 <style>
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
-  background: #fff0f5;
+  background: linear-gradient(135deg, #fff0f5 0%, #ffe6ee 100%);
   text-align: center;
-}
-h1 {
-  color: #d6336c;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .quiz-container {
   max-width: 600px;
-  margin: auto;
-  background: #ffe6f0;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(214, 51, 108, 0.5);
+  width: 90%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(214, 51, 108, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+.quiz-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #ff9bb8, #d6336c);
+}
+h1 {
+  color: #d6336c;
+  margin-bottom: 25px;
+  font-size: 28px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+#progress {
+  margin-bottom: 15px;
+  font-style: italic;
+  color: #a63a5f;
+  font-size: 16px;
 }
 .question {
   font-weight: bold;
-  margin-bottom: 15px;
-  font-size: 1.1em;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #333;
+  line-height: 1.4;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 .options button {
-  display: block;
-  margin: 8px auto;
-  padding: 10px 20px;
-  background: #ffd6e0;
-  border: none;
-  border-radius: 10px;
+  padding: 14px 20px;
+  background: #ffedf3;
+  border: 2px solid #ffd6e0;
+  border-radius: 12px;
   cursor: pointer;
-  width: 80%;
-  font-size: 1em;
-  transition: 0.2s;
+  font-size: 16px;
+  transition: all 0.3s;
+  color: #333;
 }
 .options button:hover {
-  background: #ffabc1;
+  background: #ffd6e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(214, 51, 108, 0.2);
 }
 #feedback {
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 1.1em;
-}
-#progress {
-  margin-bottom: 10px;
-  font-style: italic;
-}
-#finalVideo {
-  display: none;
   margin-top: 20px;
-  max-width: 100%;
+  font-weight: bold;
+  font-size: 18px;
+  min-height: 30px;
+  padding: 10px;
   border-radius: 10px;
+  transition: all 0.3s;
+}
+.correct {
+  background-color: #f0fff0;
+  color: #2e8b57;
+}
+.incorrect {
+  background-color: #fff0f0;
+  color: #dc143c;
+}
+#video-final {
+  display: none;
+  margin-top: 30px;
+  text-align: center;
+  animation: fadeIn 1s;
+}
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  margin: 20px 0;
+}
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.completion-message {
+  font-size: 22px;
+  color: #d6336c;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+.heart {
+  color: #ff4d8d;
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (max-width: 480px) {
+  .quiz-container {
+    padding: 15px;
+    width: 95%;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  .question {
+    font-size: 16px;
+  }
+  .options button {
+    padding: 12px;
+    font-size: 14px;
+  }
 }
 </style>
 </head>
 <body>
 
 <div class="quiz-container">
-  <h1>Quiz do Nosso Tempo Juntos ❤️</h1>
+  <h1>Quiz do Nosso Tempo Juntos <span class="heart">❤️</span></h1>
   <div id="progress"></div>
   <div id="quiz"></div>
   <div id="feedback"></div>
-  <video id="finalVideo" controls>
-    <source src="https://youtu.be/ncHTl5LkUu8" type="video/mp4">
-    Seu navegador não suporta vídeos.
-  </video>
+  
+  <div id="video-final">
+    <div class="completion-message">Parabéns por completar nosso quiz! <span class="heart">💖</span></div>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/ncHTl5LkUu8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p>Obrigado por compartilhar todos esses momentos comigo!</p>
+  </div>
 </div>
 
 <script>
@@ -87,40 +187,59 @@ const quizData = [
   {q:"No dia 09/06, te bussei para irmos ao cinema. O que a gente viu?", options:["Não fomos, o carro quebrou","Ainda estou aqui","A gente nem lembra o nome, só lembra que foi especial 💘"], answer:2}
 ];
 
-let current = 0;
+let currentQuestion = 0;
 
-function loadQuestion(){
-  if(current >= quizData.length){
-    document.getElementById("quiz").style.display = "none";
-    document.getElementById("progress").style.display = "none";
-    document.getElementById("feedback").innerText = "🎉 Parabéns! Você acertou todas! ❤️";
-    document.getElementById("finalVideo").style.display = "block";
+function loadQuestion() {
+  if (currentQuestion >= quizData.length) {
+    showCompletion();
     return;
   }
 
-  const q = quizData[current];
-  document.getElementById("progress").innerText = `Pergunta ${current+1} de ${quizData.length}`;
+  const question = quizData[currentQuestion];
+  document.getElementById("progress").innerText = `Pergunta ${currentQuestion + 1} de ${quizData.length}`;
+  
   const quizDiv = document.getElementById("quiz");
-  quizDiv.innerHTML = `<div class="question">${q.q}</div><div class="options"></div>`;
+  quizDiv.innerHTML = `
+    <div class="question">${question.q}</div>
+    <div class="options"></div>
+  `;
+  
   const optionsDiv = quizDiv.querySelector(".options");
-
-  q.options.forEach((opt,i)=>{
-    const btn = document.createElement("button");
-    btn.innerText = opt;
-    btn.onclick = ()=>{
-      if(i === q.answer){
-        document.getElementById("feedback").innerText = "✅ Acertou! 💖";
-        setTimeout(()=>{
-          current++;
-          loadQuestion();
-          document.getElementById("feedback").innerText = "";
-        }, 800);
-      } else {
-        document.getElementById("feedback").innerText = "❌ Ops! Tente de novo 😅";
-      }
-    };
-    optionsDiv.appendChild(btn);
+  
+  question.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.innerText = option;
+    button.onclick = () => checkAnswer(index);
+    optionsDiv.appendChild(button);
   });
+}
+
+function checkAnswer(selectedIndex) {
+  const question = quizData[currentQuestion];
+  const feedbackDiv = document.getElementById("feedback");
+  
+  if (selectedIndex === question.answer) {
+    feedbackDiv.innerText = "✅ Acertou! 💖";
+    feedbackDiv.className = "correct";
+    
+    setTimeout(() => {
+      currentQuestion++;
+      loadQuestion();
+      feedbackDiv.innerText = "";
+      feedbackDiv.className = "";
+    }, 1000);
+  } else {
+    feedbackDiv.innerText = "❌ Ops! Tente de novo 😅";
+    feedbackDiv.className = "incorrect";
+  }
+}
+
+function showCompletion() {
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("progress").style.display = "none";
+  document.getElementById("feedback").style.display = "none";
+  
+  document.getElementById("video-final").style.display = "block";
 }
 
 // Inicializa o quiz
@@ -129,6 +248,3 @@ loadQuestion();
 
 </body>
 </html>
-
-
-
